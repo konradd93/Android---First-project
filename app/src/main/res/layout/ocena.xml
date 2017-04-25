@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/ocenaTextView"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:text="Ocena" />
+
+    <TextView
+        android:id="@+id/nrOcenyTextView"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <RadioGroup
+        android:id="@+id/grupaOceny"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_height="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:text="2" />
+
+        <RadioButton
+            android:id="@+id/radio3"
+            android:layout_height="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:text="3" />
+
+        <RadioButton
+            android:id="@+id/radio4"
+            android:layout_height="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:text="4" />
+
+        <RadioButton
+            android:id="@+id/radio5"
+            android:layout_height="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:text="5" />
+
+</RadioGroup>
+
+</LinearLayout>
