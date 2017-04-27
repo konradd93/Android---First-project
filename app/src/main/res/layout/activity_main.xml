@@ -37,7 +37,8 @@
         android:layout_toEndOf="@+id/textView4"
         android:layout_alignLeft="@+id/editText2"
         android:layout_alignStart="@+id/editText2"
-        android:digits="AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻaąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż"/>
+        android:digits="AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻaąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż"
+        android:layout_toRightOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView2"
@@ -100,7 +101,7 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="31dp"
         android:id="@+id/send"
-        android:onClick="wpiszOceny"/>
+        android:onClick="printMarks"/>
 
     <Button
         android:text="Result"

@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="WywolywanaAktywnosc">
+        <activity android:name=".CalledActivity">
         </activity>
 
     </application>

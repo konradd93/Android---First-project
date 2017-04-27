@@ -1,65 +1,57 @@
 package pl.kondi.andek;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by ATyKondziu on 08.03.2017.
  */
 
-public class WywolywanaAktywnosc extends AppCompatActivity {
+public class CalledActivity extends AppCompatActivity {
 
-    private int il_ocen;
-    private float srednia;
-    ListView rozbudowana_lista;
+    private int numberOfMarks;
+    private float average;
+    ListView lvExtensiveList;
     private Context context;
-    private List<ModelOceny> listaOcen;
-    private static final String TAG = WywolywanaAktywnosc.class.getSimpleName();
+    private List<MarkModel> marksList;
+    private static final String TAG = CalledActivity.class.getSimpleName();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wywolywana);
+        setContentView(R.layout.called_activity);
         context = getApplicationContext();
 
-        Bundle tobolek = getIntent().getExtras();
-        il_ocen = tobolek.getInt("iloscOcen");
-        rozbudowana_lista = (ListView) findViewById(R.id.listaOcen);
-        listaOcen = new ArrayList<>();
-        for (int i = 0; i < il_ocen; i++) {
-            listaOcen.add(new ModelOceny("", 0));
+        Bundle bundle = getIntent().getExtras();
+        numberOfMarks = bundle.getInt("iloscOcen");
+        lvExtensiveList = (ListView) findViewById(R.id.marksList);
+        marksList = new ArrayList<>();
+        for (int i = 0; i < numberOfMarks; i++) {
+            marksList.add(new MarkModel("", 0));
         }
         if (savedInstanceState != null) {
             //przechwycenie tablicy z ocenami zachowanej na wypadek gdyby została wykonana metoda onStop()
-            int[] lista = savedInstanceState.getIntArray("ocenki");
+            int[] list = savedInstanceState.getIntArray("ocenki");
             int i = 0;
             //przepisywanie ocen z saveInstanceState do naszej listy ocen
-            for (ModelOceny ocena : listaOcen) {
-                ocena.setOcena(lista[i]);
+            for (MarkModel mark : marksList) {
+                mark.setMark(list[i]);
                 i++;
             }
         }
 
 
-        InteraktywnyAdapterTablicy adapter = new InteraktywnyAdapterTablicy(this, listaOcen);
-        rozbudowana_lista.setAdapter(adapter);
+        InteractiveArrayAdapter adapter = new InteractiveArrayAdapter(this, marksList);
+        lvExtensiveList.setAdapter(adapter);
     }
 
     //Aktywność za chwilę stanie się widoczna
@@ -82,10 +74,10 @@ public class WywolywanaAktywnosc extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        int[] lista = new int[listaOcen.size()];
+        int[] lista = new int[marksList.size()];
 
-        for (int i = 0; i < listaOcen.size(); i++) {
-            lista[i] = listaOcen.get(i).getOcena();
+        for (int i = 0; i < marksList.size(); i++) {
+            lista[i] = marksList.get(i).getMark();
         }
 
         outState.putIntArray("ocenki", lista);
@@ -114,22 +106,22 @@ public class WywolywanaAktywnosc extends AppCompatActivity {
     }
 
     //przycisk zatwierdzenia ocen
-    public void Gotowe(View view) {
+    public void finished(View view) {
         //czy wszystkie oceny zostały uzupełnione
         if (checkWhetherAll()) {
-            int i = 0, suma = 0;
-            for (ModelOceny ocena : listaOcen) {
-                suma += ocena.getOcena();
+            int i = 0, sum = 0;
+            for (MarkModel mark : marksList) {
+                sum += mark.getMark();
                 i++;
             }
-            srednia = (float) suma / i;
-            // Log.e(TAG,String.format("%.2f",srednia));
-            Bundle tobolek = new Bundle();
-            tobolek.putString("srednia", String.format("%.2f", srednia).toString()); //można przekazać więcej niż 1 element
+            average = (float) sum / i;
+            // Log.e(TAG,String.format("%.2f",average));
+            Bundle bundle = new Bundle();
+            bundle.putString("average", String.format("%.2f", average).toString()); //można przekazać więcej niż 1 element
 
-            Intent zamiar = new Intent();
-            zamiar.putExtras(tobolek);
-            setResult(1, zamiar);
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            setResult(1, intent);
             finish();
         } else {
             Toast toast = Toast.makeText(context, //lub MainActivity.this, //kontekst-zazwyczaj referencja do Activity
@@ -142,8 +134,8 @@ public class WywolywanaAktywnosc extends AppCompatActivity {
     //metoda sprawdzająca czy wszystkie oceny zostały wypełnione
     public boolean checkWhetherAll() {
         boolean isAll = true;
-        for (ModelOceny ocena : listaOcen) {
-            if (ocena.getOcena() < 2 || ocena.getOcena() > 5) {
+        for (MarkModel mark : marksList) {
+            if (mark.getMark() < 2 || mark.getMark() > 5) {
                 isAll = false;
                 break;
             }

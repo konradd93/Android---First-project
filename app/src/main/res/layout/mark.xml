@@ -13,13 +13,13 @@
         android:text="Ocena" />
 
     <TextView
-        android:id="@+id/nrOcenyTextView"
+        android:id="@+id/tvNumberOfMark"
         android:layout_width="37dp"
         android:layout_height="wrap_content"
         android:text="1" />
 
     <RadioGroup
-        android:id="@+id/grupaOceny"
+        android:id="@+id/marksGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="4"
